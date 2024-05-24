@@ -19,7 +19,7 @@ limitations under the License.
 """Submit a program for review into a gallery.
 """
 
-__author__ = "fraser@google.com (Neil Fraser)"
+__author__ = "blocklygames@neil.fraser.name (Neil Fraser)"
 
 import base64
 import json

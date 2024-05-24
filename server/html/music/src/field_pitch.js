@@ -7,7 +7,7 @@
 
 /**
  * @fileoverview Music pitch input field.  Shared with Blockly Samples.
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  * @author samelh@google.com (Sam El-Husseini)
  */
 'use strict';

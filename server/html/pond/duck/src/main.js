@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview Creates a multi-user pond (duck page).
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  */
 'use strict';
 

@@ -20,7 +20,7 @@ limitations under the License.
 Can be executed from the web, or from the command line.
 """
 
-__author__ = "fraser@google.com (Neil Fraser)"
+__author__ = "blocklygames@neil.fraser.name (Neil Fraser)"
 
 import os
 import time

@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview Blocks for Pond game.
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  */
 'use strict';
 

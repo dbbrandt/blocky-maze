@@ -19,7 +19,7 @@ limitations under the License.
 """Log a reported client-side error.
 """
 
-__author__ = "fraser@google.com (Neil Fraser)"
+__author__ = "blocklygames@neil.fraser.name (Neil Fraser)"
 
 import cgi_utils
 import logging

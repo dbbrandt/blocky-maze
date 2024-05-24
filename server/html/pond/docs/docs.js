@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview JavaScript for Pond Documentation.
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  */
 'use strict';
 

@@ -60,8 +60,8 @@ Pond adds these to the JavaScript Math object as Math.sin_deg/Math.cos_deg/etc.
 Various constants such as acceleration rate, robot-missile speed ratio, etc are
 tuned differently.  These differences are not intentional.
 
-Google is indebted to Tom Poindexter for inspiring so many young people to
-learn about programming through his game.  We hope to continue this success
+Blockly Games is indebted to Tom Poindexter for inspiring so many young people
+to learn about programming through his game.  We hope to continue this success
 with Pond.  As with CROBOTS, all the code for Pond is open source.
 
 The original DOS-based CROBOTS game may be found here:
@@ -70,5 +70,4 @@ The original DOS-based CROBOTS game may be found here:
 
 --
 Neil Fraser
-Google, California
 August 2014

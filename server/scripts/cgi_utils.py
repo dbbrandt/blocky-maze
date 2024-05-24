@@ -18,7 +18,7 @@ limitations under the License.
 """Parse GET and POST data.
 """
 
-__author__ = "fraser@google.com (Neil Fraser)"
+__author__ = "blocklygames@neil.fraser.name (Neil Fraser)"
 
 from os import environ
 from urllib.parse import unquote

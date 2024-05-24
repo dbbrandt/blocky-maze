@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview Common support code for all games and the index.
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  */
 'use strict';
 

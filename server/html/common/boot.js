@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview Load the correct language pack and code bundle.
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  */
 'use strict';
 

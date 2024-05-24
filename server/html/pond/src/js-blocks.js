@@ -7,7 +7,7 @@
 /**
  * @fileoverview Redefining some of Blockly's exiting blocks to look more
  * similar to JavaScript.
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  * @author kozbial@google.com (Monica Kozbial)
  */
 'use strict';

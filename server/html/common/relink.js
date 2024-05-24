@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview JavaScript for correctly linking the title link(s).
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  */
 'use strict';
 

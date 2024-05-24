@@ -19,7 +19,7 @@ limitations under the License.
 """Delete a gallery record.
 """
 
-__author__ = "fraser@google.com (Neil Fraser)"
+__author__ = "blocklygames@neil.fraser.name (Neil Fraser)"
 
 import cgi_utils
 import os

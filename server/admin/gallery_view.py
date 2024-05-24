@@ -19,7 +19,7 @@ limitations under the License.
 """Fetch both public and private gallery records.
 """
 
-__author__ = "fraser@google.com (Neil Fraser)"
+__author__ = "blocklygames@neil.fraser.name (Neil Fraser)"
 
 import cgi_utils
 import json

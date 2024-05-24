@@ -19,7 +19,7 @@ limitations under the License.
 """Store programs (XML and JS) to disk.
 """
 
-__author__ = "fraser@google.com (Neil Fraser)"
+__author__ = "blocklygames@neil.fraser.name (Neil Fraser)"
 
 import hashlib
 import os

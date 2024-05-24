@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview Creates an pond for avatars to compete in.
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  */
 'use strict';
 

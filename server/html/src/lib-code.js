@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview Common support code for games that handle JavaScript.
- * @author fraser@google.com (Neil Fraser)
+ * @author blocklygames@neil.fraser.name (Neil Fraser)
  */
 'use strict';
 
