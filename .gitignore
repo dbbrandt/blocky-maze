@@ -8,3 +8,4 @@ server/html/third-party/
 build/third-party-downloads/
 /offline
 /node_modules
+/admin-password.txt

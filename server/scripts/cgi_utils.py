@@ -26,7 +26,7 @@ from sys import stdin
 
 
 # Relative from both /scripts and /admin
-DATA_PATH = "../data"
+DATA_PATH = "/bg-data"
 
 
 # Return a data path for the given app and type.
