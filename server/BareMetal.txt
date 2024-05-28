@@ -33,10 +33,11 @@ Use this encrypted password in the 'XXXXXXX...' below.
 > sudo su - bg-user
 >   echo 'admin:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' >> .htpasswd
 >   history -c
+>   chmod o+rx .
 >   chmod o-r .htpasswd
 >   touch /bg-logs/access.log /bg-logs/error.log /bg-logs/javascript.log
 >   chmod g+w /bg-logs/*.log
->   mkdir -p /bg-data/{maze,bird,turtle,movie,music,pond-tutor,pond-duck}
+>   mkdir -p /bg-data/{maze,bird,turtle,movie,music,pond-tutor,pond-duck}/storage
 >   mkdir -p /bg-data/{turtle,movie,music}/gallery
 >   git clone -b main https://github.com/NeilFraser/blockly-games.git
 >   cd blockly-games
