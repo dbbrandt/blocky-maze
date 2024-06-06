@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Masavi",
+			"Pajusmar",
 			"Puik",
 			"Villuvilkur"
 		]
@@ -165,5 +166,21 @@
 	"Movie.circleTooltip": "Joonistab ringi kindlaksmääratud asukohas ja määratud raadiusega.",
 	"Movie.circleDraw": "ring",
 	"Movie.rectTooltip": "Joonistab ristküliku määratletud asukohas ning määratud laiuse ja kõrgusega.",
-	"Movie.rectDraw": "ristkülik"
+	"Movie.rectDraw": "ristkülik",
+	"Music.piano": "klaver",
+	"Music.trumpet": "trompet",
+	"Music.banjo": "banjo",
+	"Music.violin": "viiul",
+	"Music.submitMsg": "Esita galeriisse",
+	"Music.helpUseFunctions": "Teie lahendus töötab, kuid saate paremini teha. Kasutage korduva koodi hulga vähendamiseks funktsioone.",
+	"Music.helpUseInstruments": "Muusika kõlab paremini, kui kasutate igas stardiplokis erinevat instrumenti.",
+	"Music.helpText1": "Koostage \"Sepapoisid\" neli esimest nooti.",
+	"Music.helpText2a": "Funktsioon võimaldab plokke rühmitada ja neid seejärel mitu korda käivitada.",
+	"Music.helpText2b": "Looge funktsioon \"Sepapoisid\" nelja esimese noodi esitamiseks. Käivitage see funktsioon kaks korda. Ärge lisage uusi noodiplokke.",
+	"Music.helpText3": "Loo \"Sepapoisid\" järgmise osa jaoks teine funktsioon. Viimane noot on pikem.",
+	"Music.helpText4": "Loo \"Sepapoisid\" järgmise osa jaoks kolmas funktsioon. Esimesed neli nooti on lühemad.",
+	"Music.helpText5": "Lõpetage kogu \"Sepapoisid\" lugu.",
+	"Music.helpText6a": "See uus plokk võimaldab teil lülituda teisele instrumendile.",
+	"Music.helpText6b": "Mängige oma lugu viiuliga.",
+	"Music.helpText7b": "Looge teine stardiplokk, millel on kaks viivitusplokki, ja seejärel mängib ka \"Sepapoisse\"."
 }
