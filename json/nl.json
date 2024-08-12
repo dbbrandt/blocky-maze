@@ -10,6 +10,7 @@
 			"Patio",
 			"Robin van der Vliet",
 			"Robin0van0der0vliet",
+			"Rots61",
 			"Siebrand"
 		]
 	},
@@ -28,7 +29,7 @@
 	"Games.finalLevel": "Ben je klaar voor de volgende uitdaging?",
 	"Games.submitTitle": "Naam:",
 	"Games.linkTooltip": "Opslaan en koppelen naar blokken.",
-	"Games.runTooltip": "Het door u geschreven programma uitvoeren.",
+	"Games.runTooltip": "Het door jou geschreven programma uitvoeren.",
 	"Games.runProgram": "Programma uitvoeren",
 	"Games.resetTooltip": "Stop het programma en begin het niveau opnieuw.",
 	"Games.resetProgram": "Opnieuw instellen",
