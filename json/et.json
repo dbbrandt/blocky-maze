@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Masavi",
+			"Nuclear",
 			"Pajusmar",
 			"Puik",
 			"Villuvilkur"
@@ -167,10 +168,18 @@
 	"Movie.circleDraw": "ring",
 	"Movie.rectTooltip": "Joonistab ristküliku määratletud asukohas ning määratud laiuse ja kõrgusega.",
 	"Movie.rectDraw": "ristkülik",
+	"Movie.submitMsg": "Esita galeriisse",
+	"Music.restTooltip": "Ootab määratud aja.",
+	"Music.firstPart": "esimene osa",
 	"Music.piano": "klaver",
 	"Music.trumpet": "trompet",
 	"Music.banjo": "banjo",
 	"Music.violin": "viiul",
+	"Music.guitar": "kitarr",
+	"Music.flute": "flööt",
+	"Music.drum": "trumm",
+	"Music.choir": "koor",
+	"Music.galleryMsg": "Vaadake galeriid",
 	"Music.submitMsg": "Esita galeriisse",
 	"Music.helpUseFunctions": "Teie lahendus töötab, kuid saate paremini teha. Kasutage korduva koodi hulga vähendamiseks funktsioone.",
 	"Music.helpUseInstruments": "Muusika kõlab paremini, kui kasutate igas stardiplokis erinevat instrumenti.",
@@ -182,5 +191,8 @@
 	"Music.helpText5": "Lõpetage kogu \"Sepapoisid\" lugu.",
 	"Music.helpText6a": "See uus plokk võimaldab teil lülituda teisele instrumendile.",
 	"Music.helpText6b": "Mängige oma lugu viiuliga.",
-	"Music.helpText7b": "Looge teine stardiplokk, millel on kaks viivitusplokki, ja seejärel mängib ka \"Sepapoisse\"."
+	"Music.helpText7b": "Looge teine stardiplokk, millel on kaks viivitusplokki, ja seejärel mängib ka \"Sepapoisse\".",
+	"Pond.targetName": "Sihtmärk",
+	"Pond.pendulumName": "Pendel",
+	"Gallery": "Galerii"
 }
