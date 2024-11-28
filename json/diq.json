@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"1917 Ekim Devrimi",
+			"GolyatGeri",
 			"Gorizon",
 			"Kumkumuk",
 			"Marmase",
@@ -87,6 +88,7 @@
 	"Maze.capacity0": "%0 bloqê şıma mendê",
 	"Maze.capacity1": "%1 bloqê şıma mendê",
 	"Maze.capacity2": "%2 bloqê şıma mendê",
+	"Maze.runTooltip": "Kaykeri rê vatışanê Blokan ano herun",
 	"Maze.resetTooltip": "Kaufinayoği seraniya labirenti de rone",
 	"Maze.helpSkins": "Nê menu ra kaykerê xoyê vicnayeyi weçine.",
 	"Bird.noWorm": "Lolıki çıniyo",
