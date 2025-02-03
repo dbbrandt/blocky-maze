@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Miguelisoals",
 			"Pupsik-ipa",
 			"Абухба Андрей",
 			"Андрей"
@@ -15,7 +16,11 @@
 	"Games.music": "Амузыка",
 	"Games.pondTutor": "Аӡҭачы Tutor",
 	"Games.pond": "Аӡҭачы",
+	"Games.linesOfCode1": "Ари аҩаӡара 1 ЏьаваСкрипт ала иӡбеит:",
+	"Games.linesOfCode2": "Уара ари аҩаӡара уӡбеит %1 ЏьаваСкрипт ацәаҳәақәа рыла:",
 	"Games.nextLevel": "Шәара шәазыхиоума %1 аҩаӡара?",
+	"Games.finalLevel": "Уазыхиоума анаҩстәи ауадаҩра?",
+	"Games.submitTitle": "Ахьӡ:",
 	"Games.linkTooltip": "Еиқәырхатәуп иагьаарԥштәуп аблокқәа рахь азхьарԥш.",
 	"Games.runTooltip": "Идәықәҵа еиқәуршәаз апрограмма",
 	"Games.runProgram": "Идәықәҵатәуп апрограмма",
