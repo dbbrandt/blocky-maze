@@ -1056,7 +1056,7 @@ function transform10(xml) {
 function submitToGallery() {
   const startCount = Music.startCount.get();
   if (!canSubmit || startCount < 1) {
-    alert(BlocklyGames.getMsg('submitDisabled', false));
+    alert(BlocklyGames.getMsg('Music.submitDisabled', false));
     return;
   }
   // Encode the thumbnail.

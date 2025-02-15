@@ -590,7 +590,7 @@ function submitToGallery() {
   const blockCount = BlocklyInterface.workspace.getAllBlocks(false).length;
   const code = BlocklyCode.getJsCode();
   if (blockCount < 4 || !code.includes('time()')) {
-    alert(BlocklyGames.getMsg('submitDisabled', false));
+    alert(BlocklyGames.getMsg('Movie.submitDisabled', false));
     return;
   }
   // Draw and copy the user layer.
