@@ -112,6 +112,18 @@ deploy:
 	chmod +x ../admin/gallery_delete.py
 	chmod +x ../admin/gallery_publish.py
 	chmod +x ../admin/gallery_view.py
+	# Precompress JavaScript files.
+	# The site is live and functional, this step is not blocking.
+	gzip -9 ../html/common/*.js
+	gzip -9 ../html/third-party/ace/*.js
+	gzip -9 ../html/third-party/*.js
+	gzip -9 ../html/third-party/JS-Interpreter/*.js
+	#gzip -9 ../html/generated/*.js -- Currently no such files.
+	gzip -9 ../html/*/generated/*.js
+	gzip -9 ../html/*/*/generated/*.js
+	gzip -9 ../html/generated/msg/*.js
+	gzip -9 ../html/*/generated/msg/*.js
+	gzip -9 ../html/*/*/generated/msg/*.js
 
 offline: clean-offline
 	mkdir offline
