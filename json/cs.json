@@ -9,6 +9,7 @@
 			"Ilimanaq29",
 			"Macofe",
 			"Michaelbrabec",
+			"Mormegil",
 			"Robins7",
 			"Vorkronor"
 		]
@@ -99,7 +100,7 @@
 	"Maze.capacity2": "Počet zbývajících bloků %2.",
 	"Maze.runTooltip": "Hráč dělá to, co bloky říkají.",
 	"Maze.resetTooltip": "Postav hráče zpět na začátek bludiště.",
-	"Maze.helpStack": "Poskládej několik pohybů vpřed dohromady a pomoc mi dosáhnout cíle.",
+	"Maze.helpStack": "Poskládej několik pohybů vpřed dohromady a pomoz mi dosáhnout cíle.",
 	"Maze.helpOneTopBlock": "V tomto levelu musíš posbírat všechny bloky na bílém pozadí.",
 	"Maze.helpRun": "Spusťte váš program, abyste zjistili, co se stane.",
 	"Maze.helpReset": "Váš program nevyřešil bludiště. Stiskněte \"Reset\" a opakujte akci.",
