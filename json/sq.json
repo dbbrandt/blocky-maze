@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Arianit",
-			"Eraldkerciku"
+			"Eraldkerciku",
+			"Xhulianoo"
 		]
 	},
 	"Games.name": "Lojërat Blockly",
@@ -237,7 +238,7 @@
 	"Music.helpText7a": "Ky bllok i ri shton një vonesë pa zë.",
 	"Music.helpText7b": "Krijo një bllok të dytë që ka dy blloqe vonese, pastaj luan edhe 'Frère Jacques'.",
 	"Music.helpText8": "Çdo bllok fillimi duhet të luajë 'Frère Jacques' dy herë.",
-	"Music.helpText9": "Krijo katër blloqe fillestare që secili luan \"Frère Jacques\" dy herë. Shtoni numrin e saktë të blloqeve të vonesës.",
+	"Music.helpText9": "Krijo katër blloqe fillimi që secili të luajë 'Frère Jacques' dy herë. Shto numrin e saktë të blloqeve të vonesës.",
 	"Music.helpText10": "Përgatit çfarëdo që dëshiron. Ke një numër të madh të blloqeve të reja që mund të eksplorosh. Bëfsh qejf!",
 	"Music.helpText10Reddit": "Përdor butonin \"Shiko galerinë\" për të parë se çfarë kanë komponuar të tjerët. Nëse komponon diçka interesante, përdor butonin \"Dorëzo në Galeri\" për ta publikuar atë.",
 	"Pond.scanTooltip": "Skano për armiq. Specifiko një drejtim (0-360). Kthen distancën e armikut më të afërt në atë drejtim. Kthen Pafundësisht nëse nuk gjendet armik.",
