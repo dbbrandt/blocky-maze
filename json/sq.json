@@ -105,7 +105,7 @@
 	"Maze.helpSkins": "Zgjedhni lojtarin tuaj të preferuar nga kjo meny.",
 	"Maze.helpIf": "Një bllok \"nëse\" do të bëjë diçka vetëm nëse kushti është i vërtetë. Provoni të ktheheni majtas nëse ka një rrugë në të majtë.",
 	"Maze.helpMenu": "Kliko në %1 në bllokun 'nëse' për të ndryshuar gjendjen e tij.",
-	"Maze.helpWallFollow": "Mund ta zgjidhësh këtë labirint të komplikuar? Provo të ndiqni murin në të majtë. Vetëm për programuesit e avancuar!",
+	"Maze.helpWallFollow": "Mund ta zgjidhësh këtë labirint të komplikuar? Provo të ndjekësh murin në të majtë. Vetëm për programuesit e përparuar!",
 	"Bird.noWorm": "nuk ka krimb",
 	"Bird.heading": "drejtimi",
 	"Bird.noWormTooltip": "Gjendja kur zogu nuk e ka fituar krimbin.",
