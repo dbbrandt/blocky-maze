@@ -1,7 +1,7 @@
 Care and Feeding of the Blockly Games Server.
 
 Routine system maintenance (suggest monthly):
-SSH to the server.
+SSH to your account on the server.
 Once connected, issue the following commands:
 > sudo apt-get update
 > sudo apt-get upgrade
@@ -14,11 +14,11 @@ To push a new version of Blockly Games:
 >   make stage
 >   make deploy
 >   exit
-After staging test http://staging.blockly.games to verify proper functionality.
-After delpoyment, immediately test https://blockly.games to verify everything's good.
+After staging, test http://staging.blockly.games to verify proper functionality.
+After deployment, immediately test https://blockly.games to verify everything's good.
 
 If there are updates to the web server config:
-> sudo cp ~bg-user/blockly-games/server/blocklygames.conf /etc/nginx/sites-available/
+> sudo cp ~bg-user/blockly-games/server/*.conf /etc/nginx/sites-available/
 > sudo nginx -s reload
 
 To access the admin page, point a web browser at: https://blockly.games/admin
