@@ -884,7 +884,7 @@
     "msg": "Your solution works, but you can do better.  Use functions to reduce the amount of repeated code."
   },
   "Music.helpUseInstruments": {
-    "desc": "Dialog telling user not to use only one musical instrument (piano, flute, etc).",
+    "desc": "Dialog telling user not to use only one musical instrument (piano, flute, etc.).",
     "msg": "The music will sound better if you use a different instrument in each start block."
   },
   "Music.helpText1": {

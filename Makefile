@@ -97,33 +97,45 @@ deps:
 	  --js server/html/third-party/JS-Interpreter/interpreter.js\
 	  --js_output_file server/html/third-party/JS-Interpreter/compressed.js
 
-deploy:
-	rm -rf ../html
-	cp -R server/html ../html
-	rm -rf ../scripts
-	cp -R server/scripts ../scripts
-	chmod +x ../scripts/errorReporter.py
-	chmod +x ../scripts/gallery_submit.py
-	chmod +x ../scripts/gallery_view.py
-	chmod +x ../scripts/storage.py
-	rm -rf ../admin
-	cp -R server/admin ../admin
-	chmod +x ../admin/expiry.py
-	chmod +x ../admin/gallery_delete.py
-	chmod +x ../admin/gallery_publish.py
-	chmod +x ../admin/gallery_view.py
+stage:
+	rm -rf ../html_staging
+	rm -rf ../scripts_staging
+	rm -rf ../admin_staging
+	cp -R server/html ../html_staging
+	cp -R server/scripts ../scripts_staging
+	cp -R server/admin ../admin_staging
+	chmod +x ../scripts_staging/errorReporter.py
+	chmod +x ../scripts_staging/gallery_submit.py
+	chmod +x ../scripts_staging/gallery_view.py
+	chmod +x ../scripts_staging/storage.py
+	chmod +x ../admin_staging/expiry.py
+	chmod +x ../admin_staging/gallery_delete.py
+	chmod +x ../admin_staging/gallery_publish.py
+	chmod +x ../admin_staging/gallery_view.py
 	# Precompress JavaScript files.
-	# The site is live and functional, this step is not blocking.
-	gzip -9 ../html/common/*.js
-	gzip -9 ../html/third-party/ace/*.js
-	gzip -9 ../html/third-party/*.js
-	gzip -9 ../html/third-party/JS-Interpreter/*.js
+	gzip -9 ../html_staging/common/*.js
+	gzip -9 ../html_staging/third-party/ace/*.js
+	gzip -9 ../html_staging/third-party/*.js
+	gzip -9 ../html_staging/third-party/JS-Interpreter/*.js
 	#gzip -9 ../html/generated/*.js -- Currently no such files.
-	gzip -9 ../html/*/generated/*.js
-	gzip -9 ../html/*/*/generated/*.js
-	gzip -9 ../html/generated/msg/*.js
-	gzip -9 ../html/*/generated/msg/*.js
-	gzip -9 ../html/*/*/generated/msg/*.js
+	gzip -9 ../html_staging/*/generated/*.js
+	gzip -9 ../html_staging/*/*/generated/*.js
+	gzip -9 ../html_staging/generated/msg/*.js
+	gzip -9 ../html_staging/*/generated/msg/*.js
+	gzip -9 ../html_staging/*/*/generated/msg/*.js
+	# Build ready to test at http://staging.blockly.games/
+
+deploy:
+	@[ -d ../html_staging ] || ( echo "Error: Directory '../html_staging' not found." >&2; exit 1 )
+	@[ -d ../scripts_staging ] || ( echo "Error: Directory '../scripts_staging' not found." >&2; exit 1 )
+	@[ -d ../admin_staging ] || ( echo "Error: Directory '../admin_staging' not found." >&2; exit 1 )
+	rm -rf ../html
+	mv ../html_staging ../html
+	rm -rf ../scripts
+	mv ../scripts_staging ../scripts
+	rm -rf ../admin
+	mv ../admin_staging ../admin
+	# Build deployed to https://blockly.games
 
 offline: clean-offline
 	mkdir offline

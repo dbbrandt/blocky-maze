@@ -1005,19 +1005,19 @@ function execute() {
   // Save the code for the congratulations dialog.
   BlocklyCode.executedJsCode = code;
   // Convert API calls to local language.  Only do this for Maze.
-  function camelCase(str) {
+  function camelCase(name) {
+    let str = BlocklyGames.getMsg(name, false);
     str = str.toLowerCase();
     str = str.replace(/[-_'\s]+(\S)/g, function(_m, letter) {
       return letter.toUpperCase();
     });
     return str;
   }
-  const moveForward = camelCase(BlocklyGamesMsg['Maze.moveForward']);
-  const turnRight = camelCase(BlocklyGamesMsg['Maze.turnRight']);
-  const turnLeft = camelCase(BlocklyGamesMsg['Maze.turnLeft']);
-  BlocklyCode.executedJsCode.replaceAll('moveForward', moveForward);
-  BlocklyCode.executedJsCode.replaceAll('turnRight', turnRight);
-  BlocklyCode.executedJsCode.replaceAll('turnLeft', turnLeft);
+  const moveForward = camelCase('Maze.moveForward');
+  const turnRight = camelCase('Maze.turnRight');
+  const turnLeft = camelCase('Maze.turnLeft');
+  BlocklyCode.executedJsCode = BlocklyCode.executedJsCode.replaceAll('moveForward', moveForward)
+    .replaceAll('turnRight', turnRight).replaceAll('turnLeft', turnLeft);
 
   // Try running the user's code.  There are four possible outcomes:
   // 1. If pegman reaches the finish [SUCCESS], true is thrown.
