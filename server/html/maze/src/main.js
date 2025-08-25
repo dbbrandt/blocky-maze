@@ -98,13 +98,15 @@ const SquareType = {
 // for ease of reading and writing the static mazes.
 const map = [
 // Level 1.
- [[0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 2, 1, 3, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0]],
+ [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0, 1, 0, 0, 0],
+  [0, 0, 2, 1, 3, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0]],
 // Level 2.
  [[0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -488,11 +490,36 @@ function init() {
 
   const defaultXml =
       '<xml>' +
-        '<block movable="' + (BlocklyGames.LEVEL !== 1) + '" ' +
-        'type="maze_moveForward" x="70" y="70"></block>' +
+        // '<block movable="true" type="maze_moveForward" x="70" y="40">' +
+        //   '<next>' +
+        //     '<block movable="true" type="maze_moveForward">' +
+        //     '</block>' +
+        //   '</next>' +
+        // '</block>' +
       '</xml>';
-  BlocklyInterface.loadBlocks(defaultXml, false);
+  if (BlocklyGames.LEVEL === 1) {
+    // On level 1, never load saved state from localStorage.
+    // Respect a one-time sessionStorage override (used for language switching),
+    // otherwise fall back to the defaultXml starter blocks.
+    let loadOnce;
+    try {
+      loadOnce = window.sessionStorage && window.sessionStorage.loadOnceBlocks;
+    } catch (e) {
+      // Some environments (e.g., file://) may throw on sessionStorage access.
+    }
+    if (loadOnce) {
+      try {
+        delete window.sessionStorage.loadOnceBlocks;
+      } catch (e) {}
+      BlocklyInterface.setCode(loadOnce);
+    } else {
+      BlocklyInterface.setCode(defaultXml);
+    }
+  } else {
+    BlocklyInterface.loadBlocks(defaultXml, false);
+  }
 
+ 
   // Locate the start and finish squares.
   for (let y = 0; y < ROWS; y++) {
     for (let x = 0; x < COLS; x++) {
@@ -854,14 +881,14 @@ function runButtonClick(e) {
   }
   BlocklyDialogs.hideDialog(false);
   // Only allow a single top block on level 1.
-  if (BlocklyGames.LEVEL === 1 &&
-      BlocklyInterface.workspace.getTopBlocks(false).length > 1 &&
-      result !== ResultType.SUCCESS &&
-      !BlocklyGames.loadFromLocalStorage(BlocklyGames.storageName,
-                                         BlocklyGames.LEVEL)) {
-    levelHelp();
-    return;
-  }
+  // if (BlocklyGames.LEVEL === 1 &&
+  //     BlocklyInterface.workspace.getTopBlocks(false).length > 1 &&
+  //     result !== ResultType.SUCCESS &&
+  //     !BlocklyGames.loadFromLocalStorage(BlocklyGames.storageName,
+  //                                        BlocklyGames.LEVEL)) {
+  //   levelHelp();
+  //   return;
+  // }
   const runButton = BlocklyGames.getElementById('runButton');
   const resetButton = BlocklyGames.getElementById('resetButton');
   // Ensure that Reset button is at least as wide as Run button.
