@@ -92,6 +92,8 @@ const SquareType = {
   OPEN: 1,
   START: 2,
   FINISH: 3,
+  PINK: 4,
+  GREEN: 5,
 };
 
 // The maze square constants defined above are inlined here
@@ -102,7 +104,7 @@ const map = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 1, 1, 1, 0, 0, 0],
   [0, 0, 0, 1, 0, 1, 0, 0, 0],
-  [0, 0, 2, 1, 3, 1, 0, 0, 0],
+  [0, 0, 2, 4, 3, 1, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -377,6 +379,23 @@ function drawMap() {
       tile.setAttributeNS(Blockly.utils.dom.XLINK_NS, 'xlink:href',
           SKIN.tiles);
       tileId++;
+
+      // Overlay a small colored dot for special marker squares.
+      const squareType = map[y][x];
+      if (squareType === SquareType.PINK || squareType === SquareType.GREEN) {
+        const cx = x * SQUARE_SIZE + SQUARE_SIZE / 2;
+        const cy = y * SQUARE_SIZE + SQUARE_SIZE / 2;
+        const color = (squareType === SquareType.PINK) ? '#e91e63' : '#2e7d32';
+        Blockly.utils.dom.createSvgElement('circle', {
+            'cx': cx,
+            'cy': cy,
+            'r': Math.max(4, Math.floor(SQUARE_SIZE * 0.14)),
+            'fill': color,
+            'fill-opacity': 0.85,
+            'stroke': '#fff',
+            'stroke-width': 1.5,
+          }, svg);
+      }
     }
   }
 
@@ -484,7 +503,7 @@ function init() {
   BlocklyInterface.workspace.getAudioManager().load(SKIN.crashSound, 'fail');
   // Not really needed, there are no user-defined functions or variables.
   Blockly.JavaScript.addReservedWords('moveForward,moveBackward,' +
-      'turnRight,turnLeft,isPathForward,isPathRight,isPathBackward,isPathLeft');
+      'turnRight,turnLeft,isPathForward,isPathRight,isPathBackward,isPathLeft,isOnSquareType');
 
   drawMap();
 
@@ -1034,6 +1053,11 @@ function initInterpreter(interpreter, globalObject) {
   };
   wrap('notDone');
 
+  wrapper = function(type) {
+    return isOnSquareType(type);
+  };
+  wrap('isOnSquareType');
+
   function wrap(name) {
     interpreter.setProperty(globalObject, name,
         interpreter.createNativeFunction(wrapper, false));
@@ -1531,6 +1555,15 @@ function isPath(direction, id) {
     log.push([command, id]);
   }
   return square !== SquareType.WALL && square !== undefined;
+}
+
+/**
+ * Is Pegman currently on the given square type?
+ * @param {number} type SquareType constant value.
+ * @returns {boolean}
+ */
+function isOnSquareType(type) {
+  return map[pegmanY][pegmanX] === Number(type);
 }
 
 /**

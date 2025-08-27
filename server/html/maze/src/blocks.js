@@ -62,6 +62,11 @@ Maze.Blocks.init = function() {
     [BlocklyGames.getMsg('Maze.pathRight', false), 'isPathRight'],
   ];
 
+  const SQUARE_TYPE_OPTIONS = [
+    ['Pink', '4'],
+    ['Green', '5'],
+  ];
+
   // Add arrows to turn options after prefix/suffix have been separated.
   Blockly.Extensions.register('maze_turn_arrows',
       function() {
@@ -96,6 +101,29 @@ Maze.Blocks.init = function() {
       "nextStatement": null,
       "colour": MOVEMENT_HUE,
       "tooltip": BlocklyGames.getMsg('Maze.turnTooltip', false),
+      "extensions": ["maze_turn_arrows"],
+    },
+
+    // Block for turning left or right only if on a given square type.
+    {
+      "type": "maze_turnIfOn",
+      "message0": "%1 if on %2",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "DIR",
+          "options": TURN_DIRECTIONS,
+        },
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": SQUARE_TYPE_OPTIONS,
+        },
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": MOVEMENT_HUE,
+      "tooltip": "Turn only if Pegman is on the selected square type.",
       "extensions": ["maze_turn_arrows"],
     },
 
@@ -153,6 +181,22 @@ Maze.Blocks.init = function() {
       "extensions": ["maze_turn_arrows"],
     },
 
+    // Block for checking if Pegman is on a given square type.
+    {
+      "type": "maze_isOnSquareType",
+      "message0": "is on %1",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": SQUARE_TYPE_OPTIONS,
+        },
+      ],
+      "output": "Boolean",
+      "colour": LOGIC_HUE,
+      "tooltip": "Returns true if Pegman is currently on the selected square type.",
+    },
+
     // Block for repeat loop.
     {
       "type": "maze_forever",
@@ -190,6 +234,14 @@ Blockly.JavaScript['maze_turn'] = function(block) {
   return `${block.getFieldValue('DIR')}('block_id_${block.id}');\n`;
 };
 
+Blockly.JavaScript['maze_turnIfOn'] = function(block) {
+  // Generate JavaScript for conditional turn based on current square type.
+  const dir = block.getFieldValue('DIR');
+  const type = block.getFieldValue('TYPE');
+  const action = `${dir}('block_id_${block.id}')`;
+  return `if (isOnSquareType(${type})) {\n  ${action};\n}\n`;
+};
+
 Blockly.JavaScript['maze_if'] = function(block) {
   // Generate JavaScript for conditional "if there is a path".
   const argument = `${block.getFieldValue('DIR')}('block_id_${block.id}')`;
@@ -213,4 +265,10 @@ Blockly.JavaScript['maze_forever'] = function(block) {
         `'block_id_${block.id}'`) + branch;
   }
   return `while (notDone()) {\n${branch}}\n`;
+};
+
+Blockly.JavaScript['maze_isOnSquareType'] = function(block) {
+  // Generate JavaScript for checking Pegman's current square type.
+  const type = block.getFieldValue('TYPE');
+  return [`isOnSquareType(${type})`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
