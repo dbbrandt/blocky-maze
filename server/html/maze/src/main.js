@@ -533,6 +533,7 @@ function init() {
 
   reset(true);
   BlocklyInterface.workspace.addChangeListener(updateCapacity);
+  BlocklyInterface.workspace.addChangeListener(repositionProcedureDefOnCreate);
 
   document.body.addEventListener('mousemove', updatePegSpin_, true);
 
@@ -933,6 +934,32 @@ function updateCapacity() {
       if (i !== parts.length - 1) {
         p.appendChild(capSpan.cloneNode(true));
       }
+    }
+  }
+}
+
+/**
+ * Reposition auto-created procedure definition blocks further right into the canvas.
+ * Only runs on block creation events and only targets procedure definition blocks.
+ * @param {!Blockly.Events.Abstract} event Change event.
+ */
+function repositionProcedureDefOnCreate(event) {
+  if (event.type !== Blockly.Events.BLOCK_CREATE) return;
+  const ws = BlocklyInterface.workspace;
+  const rtl = BlocklyGames.IS_RTL;
+  const OFFSET = 200; // Workspace units (px) to move the block to the right.
+  if (!event.ids) return;
+  for (const id of event.ids) {
+    const block = ws.getBlockById(id);
+    if (!block) continue;
+    if (block.type === 'procedures_defnoreturn' || block.type === 'procedures_defreturn') {
+      // Defer to ensure the block is fully created before moving it.
+      setTimeout(function() {
+        if (!block.workspace) return; // Block may have been disposed.
+        const xy = block.getRelativeToSurfaceXY();
+        const dx = (rtl ? -1 : 1) * OFFSET;
+        block.moveBy(dx, 0);
+      }, 0);
     }
   }
 }

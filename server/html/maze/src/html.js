@@ -73,12 +73,14 @@ ${Maze.html.helpDialogs_()}
 Maze.html.toolbox_ = function(level) {
   let xml = `
       <block type="maze_moveForward"></block>
-      <block type="maze_turn"><field name="DIR">turnLeft</field></block>
-      <block type="maze_turn"><field name="DIR">turnRight</field></block>
+      <block type="maze_turn"></block>
       <block type="maze_forever"></block>
       <block type="maze_if"></block>
       <block type="maze_ifElse"></block>
+      <block type="procedures_callnoreturn"></block>
 `;
+      // <block type="procedures_defnoreturn"></block>
+      
   if (level > 2) {
     xml = `
     <block type="maze_moveForward"></block>

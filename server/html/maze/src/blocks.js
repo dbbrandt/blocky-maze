@@ -13,7 +13,9 @@
 goog.provide('Maze.Blocks');
 
 goog.require('Blockly');
+goog.require('Blockly.Blocks.procedures');
 goog.require('Blockly.JavaScript');
+goog.require('Blockly.JavaScript.procedures');
 goog.require('Blockly.Extensions');
 goog.require('Blockly.FieldDropdown');
 goog.require('Blockly.FieldImage');
