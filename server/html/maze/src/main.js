@@ -1115,6 +1115,9 @@ function execute() {
     // Abnormal termination is a user error.
     if (e === Infinity) {
       result = ResultType.TIMEOUT;
+    } else if (e === true) {
+      // Early success: Pegman reached the finish during execution.
+      result = ResultType.SUCCESS;
     } else if (e === false) {
       result = ResultType.ERROR;
     } else {
@@ -1502,6 +1505,10 @@ function move(direction, id) {
       break;
   }
   log.push([command, id]);
+  // Early-terminate if we just reached the finish.
+  if (!notDone()) {
+    throw true;
+  }
 }
 
 /**
