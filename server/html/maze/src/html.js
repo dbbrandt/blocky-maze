@@ -81,8 +81,8 @@ Maze.html.toolbox_ = function(level) {
       <block type="procedures_callnoreturn"></block>
       <block type="maze_ifOnSquareType"></block>
       <block type="maze_ifElseOnSquareType"></block>
+      <block type="procedures_defnoreturn"></block>
 `;
-      // <block type="procedures_defnoreturn"></block>
       
   if (level > 2) {
     xml = `
