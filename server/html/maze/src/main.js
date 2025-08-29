@@ -94,6 +94,7 @@ const SquareType = {
   FINISH: 3,
   PINK: 4,
   GREEN: 5,
+  STAR: 6,
 };
 
 // The maze square constants defined above are inlined here
@@ -110,7 +111,7 @@ const map = [
 //   [0, 0, 0, 0, 0, 0, 0, 0, 0],
 //   [0, 0, 0, 0, 0, 0, 0, 0, 0]],
 [[0, 0, 0, 0, 0, 0, 0, 0],
-[0, 1, 1, 0, 3, 0, 1, 0],
+[0, 1, 6, 0, 3, 0, 1, 0],
 [0, 1, 1, 0, 4, 1, 1, 0],
 [0, 1, 0, 1, 0, 1, 0, 0],
 [0, 1, 1, 4, 1, 1, 1, 0],
@@ -297,6 +298,8 @@ let finish_;
 let pegmanX;
 let pegmanY;
 let pegmanD;
+let starTargets;
+let visitedStars;
 
 /**
  * Log of Pegman's moves.  Recorded during execution, played back for animation.
@@ -402,6 +405,27 @@ function drawMap() {
             'fill-opacity': 0.85,
             'stroke': '#fff',
             'stroke-width': 1.5,
+          }, svg);
+      } else if (squareType === SquareType.STAR) {
+        // Draw a gold star for STAR squares.
+        const cx = x * SQUARE_SIZE + SQUARE_SIZE / 2;
+        const cy = y * SQUARE_SIZE + SQUARE_SIZE / 2;
+        const rOuter = Math.max(6, Math.floor(SQUARE_SIZE * 0.22));
+        const rInner = Math.floor(rOuter * 0.5);
+        const points = [];
+        for (let i = 0; i < 10; i++) {
+          const angle = Math.PI / 2 + i * Math.PI / 5;  // Start at top.
+          const r = (i % 2 === 0) ? rOuter : rInner;
+          const px = cx + r * Math.cos(angle);
+          const py = cy - r * Math.sin(angle);
+          points.push(px + ',' + py);
+        }
+        Blockly.utils.dom.createSvgElement('polygon', {
+            'points': points.join(' '),
+            'fill': '#fdd835',       // Gold 600
+            'stroke': '#f9a825',     // Gold 800
+            'stroke-width': 1.5,
+            'fill-opacity': 0.95,
           }, svg);
       }
     }
@@ -547,13 +571,18 @@ function init() {
   }
 
  
-  // Locate the start and finish squares.
+  // Locate the start, finish, and star squares.
+  starTargets = [];
+  visitedStars = new Set();
   for (let y = 0; y < ROWS; y++) {
     for (let x = 0; x < COLS; x++) {
       if (map[y][x] === SquareType.START) {
         start_ = {x, y};
       } else if (map[y][x] === SquareType.FINISH) {
         finish_ = {x, y};
+      }
+      if (map[y][x] === SquareType.STAR) {
+        starTargets.push({x, y});
       }
     }
   }
@@ -866,6 +895,14 @@ function reset(first) {
   // Move Pegman into position.
   pegmanX = start_.x;
   pegmanY = start_.y;
+
+  // Reset visited star tracking and seed if starting on a star.
+  if (visitedStars) {
+    visitedStars.clear();
+    if (map[pegmanY][pegmanX] === SquareType.STAR) {
+      visitedStars.add(pegmanX + ',' + pegmanY);
+    }
+  }
 
   if (first) {
     // Opening animation.
@@ -1513,6 +1550,10 @@ function move(direction, id) {
       break;
   }
   log.push([command, id]);
+  // Mark STAR squares as visited when stepped on.
+  if (map[pegmanY][pegmanX] === SquareType.STAR) {
+    visitedStars.add(pegmanX + ',' + pegmanY);
+  }
   // Early-terminate if we just reached the finish.
   if (!notDone()) {
     throw true;
@@ -1586,7 +1627,9 @@ function isOnSquareType(type) {
  * @returns {boolean} True if not done, false if done.
  */
 function notDone() {
-  return pegmanX !== finish_.x || pegmanY !== finish_.y;
+  const allStarsVisited = !starTargets || starTargets.length === 0 ||
+      (visitedStars && visitedStars.size >= starTargets.length);
+  return !(pegmanX === finish_.x && pegmanY === finish_.y && allStarsVisited);
 }
 
 BlocklyGames.callWhenLoaded(init);

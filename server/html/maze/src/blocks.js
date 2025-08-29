@@ -65,6 +65,7 @@ Maze.Blocks.init = function() {
   const SQUARE_TYPE_OPTIONS = [
     ['Pink', '4'],
     ['Green', '5'],
+    ['Star', '6'],
     ['Open', '1'],
   ];
 
