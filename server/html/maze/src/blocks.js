@@ -293,6 +293,7 @@ Maze.Blocks.init = function() {
         },
       ],
       "previousStatement": null,
+      "nextStatement": null,
       "colour": LOOPS_HUE,
       "tooltip": "Repeat the enclosed blocks until Pegman is on the selected square type.",
     },
