@@ -116,7 +116,7 @@ const map = [
 [0, 1, 0, 1, 0, 1, 0, 0],
 [0, 1, 1, 4, 1, 1, 1, 0],
 [0, 0, 0, 1, 0, 0, 1, 0],
-[0, 2, 1, 1, 1, 0, 1, 0],
+[0, 2, 6, 1, 1, 0, 1, 0],
 [0, 0, 0, 0, 0, 0, 0, 0]],
 // Level 2.
  [[0, 0, 0, 0, 0, 0, 0, 0],
@@ -420,7 +420,10 @@ function drawMap() {
           const py = cy - r * Math.sin(angle);
           points.push(px + ',' + py);
         }
+        const starId = 'star-' + x + '-' + y;
+           
         Blockly.utils.dom.createSvgElement('polygon', {
+            'id': starId,
             'points': points.join(' '),
             'fill': '#fdd835',       // Gold 600
             'stroke': '#f9a825',     // Gold 800
@@ -586,7 +589,6 @@ function init() {
       }
     }
   }
-
   reset(true);
   BlocklyInterface.workspace.addChangeListener(updateCapacity);
   BlocklyInterface.workspace.addChangeListener(repositionProcedureDefOnCreate);
@@ -899,11 +901,14 @@ function reset(first) {
   // Reset visited star tracking and seed if starting on a star.
   if (visitedStars) {
     visitedStars.clear();
-    if (map[pegmanY][pegmanX] === SquareType.STAR) {
-      visitedStars.add(pegmanX + ',' + pegmanY);
+    // Reset all star visuals to uncollected (gold).
+    if (Array.isArray(starTargets)) {
+      for (const s of starTargets) {
+        setStarCollected_(s.x, s.y, false);
+      }
     }
   }
-
+  
   if (first) {
     // Opening animation.
     pegmanD = startDirection + 1;
@@ -1252,6 +1257,14 @@ function animate() {
       BlocklyInterface.saveToLocalStorage();
       setTimeout(BlocklyCode.congratulations, 1000);
   }
+  // If Pegman is on a STAR during animation, update visuals and mark visited.
+  if (map[pegmanY][pegmanX] === SquareType.STAR) {
+    const key = pegmanX + ',' + pegmanY;
+    if (!visitedStars.has(key)) {
+      visitedStars.add(key);
+      setStarCollected_(pegmanX, pegmanY, true);
+    }
+  }
 
   pidList.push(setTimeout(animate, stepSpeed * 5));
 }
@@ -1553,6 +1566,7 @@ function move(direction, id) {
   // Mark STAR squares as visited when stepped on.
   if (map[pegmanY][pegmanX] === SquareType.STAR) {
     visitedStars.add(pegmanX + ',' + pegmanY);
+    // Defer visual update to animation; reset() runs after interpretation.
   }
   // Early-terminate if we just reached the finish.
   if (!notDone()) {
@@ -1620,6 +1634,26 @@ function isPath(direction, id) {
  */
 function isOnSquareType(type) {
   return map[pegmanY][pegmanX] === Number(type);
+}
+
+/**
+ * Update the visual appearance of a STAR tile.
+ * Gold when uncollected, white when collected.
+ * @param {number} x Column index.
+ * @param {number} y Row index.
+ * @param {boolean} collected Whether the star has been collected.
+ * @private
+ */
+function setStarCollected_(x, y, collected) {
+  const el = document.getElementById('star-' + x + '-' + y);
+  if (!el) return;
+  if (collected) {
+    el.setAttribute('fill', '#ffffff');
+    el.setAttribute('stroke', '#bdbdbd');
+  } else {
+    el.setAttribute('fill', '#fdd835');
+    el.setAttribute('stroke', '#f9a825');
+  }
 }
 
 /**
