@@ -156,8 +156,13 @@ BlocklyCode.congratulations = function() {
   }
 
   const ok = BlocklyGames.getElementById('doneOk');
-  ok.addEventListener('click', BlocklyInterface.nextLevel, true);
-  ok.addEventListener('touchend', BlocklyInterface.nextLevel, true);
+  // Do not auto-advance to the next level on OK. Only close the dialog.
+  ok.addEventListener('click', function() {
+    BlocklyDialogs.hideDialog(true);
+  }, true);
+  ok.addEventListener('touchend', function() {
+    BlocklyDialogs.hideDialog(true);
+  }, true);
 
   BlocklyDialogs.showDialog(content, null, false, true, style,
       function() {
@@ -177,8 +182,6 @@ BlocklyCode.congratulations = function() {
  * @private
  */
 BlocklyCode.congratulationsKeyDown_ = function(e) {
+  // Allow the dialog to close on Enter/Escape/Space, but do not auto-advance.
   BlocklyDialogs.dialogKeyDown(e);
-  if (e.keyCode === 13 || e.keyCode === 32) {
-    BlocklyInterface.nextLevel();
-  }
 };

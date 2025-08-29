@@ -65,6 +65,7 @@ Maze.Blocks.init = function() {
   const SQUARE_TYPE_OPTIONS = [
     ['Pink', '4'],
     ['Green', '5'],
+    ['Open', '1'],
   ];
 
   // Add arrows to turn options after prefix/suffix have been separated.
@@ -197,6 +198,58 @@ Maze.Blocks.init = function() {
       "tooltip": "Returns true if Pegman is currently on the selected square type.",
     },
 
+    // Block for conditional "if on square type".
+    {
+      "type": "maze_ifOnSquareType",
+      "message0": `if on %1%2${BlocklyGames.getMsg('Maze.doCode', false)}%3`,
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": SQUARE_TYPE_OPTIONS,
+        },
+        {
+          "type": "input_dummy",
+        },
+        {
+          "type": "input_statement",
+          "name": "DO",
+        },
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": LOGIC_HUE,
+      "tooltip": "If Pegman is on the selected square type, do the enclosed blocks.",
+    },
+
+    // Block for conditional "if on square type, else".
+    {
+      "type": "maze_ifElseOnSquareType",
+      "message0": `if on %1%2${BlocklyGames.getMsg('Maze.doCode', false)}%3${window['BlocklyMsg']['CONTROLS_IF_MSG_ELSE']}%4`,
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": SQUARE_TYPE_OPTIONS,
+        },
+        {
+          "type": "input_dummy",
+        },
+        {
+          "type": "input_statement",
+          "name": "DO",
+        },
+        {
+          "type": "input_statement",
+          "name": "ELSE",
+        },
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": LOGIC_HUE,
+      "tooltip": "If Pegman is on the selected square type, do the first set of blocks, otherwise do the second.",
+    },
+
     // Block for repeat loop.
     {
       "type": "maze_forever",
@@ -271,4 +324,19 @@ Blockly.JavaScript['maze_isOnSquareType'] = function(block) {
   // Generate JavaScript for checking Pegman's current square type.
   const type = block.getFieldValue('TYPE');
   return [`isOnSquareType(${type})`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+Blockly.JavaScript['maze_ifOnSquareType'] = function(block) {
+  // Generate JavaScript for conditional "if on square type".
+  const type = block.getFieldValue('TYPE');
+  const branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  return `if (isOnSquareType(${type})) {\n${branch}}\n`;
+};
+
+Blockly.JavaScript['maze_ifElseOnSquareType'] = function(block) {
+  // Generate JavaScript for conditional "if on square type, else".
+  const type = block.getFieldValue('TYPE');
+  const branch0 = Blockly.JavaScript.statementToCode(block, 'DO');
+  const branch1 = Blockly.JavaScript.statementToCode(block, 'ELSE');
+  return `if (isOnSquareType(${type})) {\n${branch0}} else {\n${branch1}}\n`;
 };

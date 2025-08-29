@@ -79,7 +79,8 @@ Maze.html.toolbox_ = function(level) {
       <block type="maze_if"></block>
       <block type="maze_ifElse"></block>
       <block type="procedures_callnoreturn"></block>
-      <block type="maze_isOnSquareType"></block>
+      <block type="maze_ifOnSquareType"></block>
+      <block type="maze_ifElseOnSquareType"></block>
 `;
       // <block type="procedures_defnoreturn"></block>
       
@@ -99,7 +100,8 @@ Maze.html.toolbox_ = function(level) {
       }
     }
     xml += '<block type="maze_turnIfOn"></block>\n';
-    xml += '<block type="maze_isOnSquareType"></block>\n';
+    xml += '<block type="maze_ifOnSquareType"></block>\n';
+    xml += '<block type="maze_ifElseOnSquareType"></block>\n';
   }
   return `<xml id="toolbox" xmlns="https://developers.google.com/blockly/xml">${xml}</xml>`;
 };
