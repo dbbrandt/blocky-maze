@@ -274,6 +274,28 @@ Maze.Blocks.init = function() {
       "colour": LOOPS_HUE,
       "tooltip": BlocklyGames.getMsg('Maze.whileTooltip', false),
     },
+    // Block for repeating until on a selected square type.
+    {
+      "type": "maze_repeatUntilSquareType",
+      "message0": `repeat until on %1%2${BlocklyGames.getMsg('Maze.doCode', false)}%3`,
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": SQUARE_TYPE_OPTIONS,
+        },
+        {
+          "type": "input_dummy",
+        },
+        {
+          "type": "input_statement",
+          "name": "DO",
+        },
+      ],
+      "previousStatement": null,
+      "colour": LOOPS_HUE,
+      "tooltip": "Repeat the enclosed blocks until Pegman is on the selected square type.",
+    },
   ]);
 };
 
@@ -340,4 +362,11 @@ Blockly.JavaScript['maze_ifElseOnSquareType'] = function(block) {
   const branch0 = Blockly.JavaScript.statementToCode(block, 'DO');
   const branch1 = Blockly.JavaScript.statementToCode(block, 'ELSE');
   return `if (isOnSquareType(${type})) {\n${branch0}} else {\n${branch1}}\n`;
+};
+
+Blockly.JavaScript['maze_repeatUntilSquareType'] = function(block) {
+  // Generate JavaScript for loop until Pegman is on a selected square type.
+  const type = block.getFieldValue('TYPE');
+  let branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  return `while (!isOnSquareType(${type})) {\n${branch}}\n`;
 };
