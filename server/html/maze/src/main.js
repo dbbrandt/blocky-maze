@@ -536,6 +536,7 @@ function init() {
        'zoom': {'startScale': scale}});
   BlocklyInterface.workspace.getAudioManager().load(SKIN.winSound, 'win');
   BlocklyInterface.workspace.getAudioManager().load(SKIN.crashSound, 'fail');
+  BlocklyInterface.workspace.getAudioManager().load(['maze/ding.mp3', 'maze/ding.ogg'], 'star');
   // Not really needed, there are no user-defined functions or variables.
   Blockly.JavaScript.addReservedWords('moveForward,moveBackward,' +
       'turnRight,turnLeft,isPathForward,isPathRight,isPathBackward,isPathLeft,isOnSquareType');
@@ -1263,6 +1264,7 @@ function animate() {
     if (!visitedStars.has(key)) {
       visitedStars.add(key);
       setStarCollected_(pegmanX, pegmanY, true);
+      BlocklyInterface.workspace.getAudioManager().play('star', 0.5);
     }
   }
 
