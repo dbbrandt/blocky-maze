@@ -77,6 +77,7 @@ Maze.html.toolbox_ = function(level) {
       <block type="maze_turnIfOn"></block>
       <block type="maze_forever"></block>
       <block type="maze_repeatUntilSquareType"></block>
+      <block type="maze_repeatNTimes"></block>
       <block type="maze_if"></block>
       <block type="maze_ifElse"></block>
       <block type="procedures_callnoreturn"></block>
@@ -96,7 +97,7 @@ Maze.html.toolbox_ = function(level) {
     `;
     if (level > 2) {
       xml += '<block type="maze_forever"></block>\n';
-      xml += '<block type="maze_repeatUntilSquareType"></block>\n';
+      xml += '<block type="maze_repeatNTimes"></block>\n';
       if (level === 6) {
         xml += '<block type="maze_if"><field name="DIR">isPathLeft</field></block>\n';
       } else if (level > 6) {

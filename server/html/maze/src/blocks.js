@@ -18,6 +18,7 @@ goog.require('Blockly.JavaScript');
 goog.require('Blockly.JavaScript.procedures');
 goog.require('Blockly.Extensions');
 goog.require('Blockly.FieldDropdown');
+goog.require('Blockly.FieldNumber');
 goog.require('Blockly.FieldImage');
 goog.require('BlocklyGames');
 
@@ -297,6 +298,32 @@ Maze.Blocks.init = function() {
       "colour": LOOPS_HUE,
       "tooltip": "Repeat the enclosed blocks until Pegman is on the selected square type.",
     },
+    // Block for repeating N times (no loop trap).
+    {
+      "type": "maze_repeatNTimes",
+      "message0": `repeat %1 times%2${BlocklyGames.getMsg('Maze.doCode', false)}%3`,
+      "args0": [
+        {
+          "type": "field_number",
+          "name": "TIMES",
+          "value": 1,
+          "min": 1,
+          "max": 20,
+          "precision": 1
+        },
+        {
+          "type": "input_dummy",
+        },
+        {
+          "type": "input_statement",
+          "name": "DO",
+        },
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": LOOPS_HUE,
+      "tooltip": "Repeat the enclosed blocks the specified number of times.",
+    },
   ]);
 };
 
@@ -370,4 +397,13 @@ Blockly.JavaScript['maze_repeatUntilSquareType'] = function(block) {
   const type = block.getFieldValue('TYPE');
   let branch = Blockly.JavaScript.statementToCode(block, 'DO');
   return `while (!isOnSquareType(${type})) {\n${branch}}\n`;
+};
+
+Blockly.JavaScript['maze_repeatNTimes'] = function(block) {
+  // Generate JavaScript for repeating N times without using the loop trap.
+  const times = Math.max(0, Number(block.getFieldValue('TIMES')) || 0);
+  let branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  const loopVar = Blockly.JavaScript.nameDB_.getDistinctName(
+      'count', Blockly.VARIABLE_CATEGORY_NAME);
+  return `for (var ${loopVar} = 0; ${loopVar} < ${times}; ${loopVar}++) {\n${branch}}\n`;
 };
