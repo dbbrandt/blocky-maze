@@ -32,8 +32,14 @@ goog.require('Maze.html');
 
 BlocklyGames.storageName = 'maze';
 
-const MAX_BLOCKS =
-    [Infinity, Infinity, Infinity, 2, 5, 5, 5, 5, 10, 7, 10][BlocklyGames.LEVEL - 1];
+// Local, dynamic level count for Maze (fallback to global BlocklyGames.MAX_LEVEL).
+let MAZE_MAX_LEVEL = BlocklyGames.MAX_LEVEL;
+let LEVELS_DATA = null; // Parsed from maze/maze.json when available.
+
+// Fallback static max blocks per level (indexed by level-1).
+const STATIC_MAX_BLOCKS =
+    [Infinity, Infinity, Infinity, 2, 5, 5, 5, 5, 10, 7, 10];
+let MAX_BLOCKS = STATIC_MAX_BLOCKS[BlocklyGames.LEVEL - 1];
 
 // Crash type constants.
 const CRASH_STOP = 1;
@@ -99,7 +105,7 @@ const SquareType = {
 
 // The maze square constants defined above are inlined here
 // for ease of reading and writing the static mazes.
-const map = [
+const STATIC_MAPS = [
 // Level 1.
 [[0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0],
@@ -223,7 +229,52 @@ const map = [
   [0, 0, 0, 1, 0, 0, 1, 0],
   [0, 2, 1, 1, 1, 0, 1, 0],
   [0, 0, 0, 0, 0, 0, 0, 0]],
-][BlocklyGames.LEVEL - 1];
+];
+
+let map;
+let maxBlocks;
+
+// Load levels from maze/maze.json with local MAZE_MAX_LEVEL fallback to BlocklyGames.MAX_LEVEL.
+async function loadLevelsFromJson_() {
+  try {
+    const response = await fetch('maze/maze.json');
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    const data = await response.json();
+
+    // Expect a top-level array of level objects: { level, max_blocks, map }
+    if (!Array.isArray(data)) throw new Error('Invalid schema: expected array');
+    LEVELS_DATA = data;
+
+    // Derive max level locally.
+    MAZE_MAX_LEVEL = LEVELS_DATA.length || BlocklyGames.MAX_LEVEL;
+
+    // Select current level (1-based -> 0-based), clamped to valid range.
+    const idx = Math.max(0, Math.min(BlocklyGames.LEVEL - 1, LEVELS_DATA.length - 1));
+    const levelData = LEVELS_DATA[idx] || {};
+
+    // Map selection with fallback to static map.
+    let candidateMap = levelData.map;
+    if (!Array.isArray(candidateMap) || candidateMap.length === 0 || !Array.isArray(candidateMap[0])) {
+      candidateMap = STATIC_MAPS[idx];
+    }
+    map = candidateMap;
+
+    // Max blocks: normalize and fallback. Treat 0 as unlimited (Infinity).
+    let mb = levelData.max_blocks;
+    if (mb === 0) {
+      mb = Infinity;
+    } else if (typeof mb !== 'number' || isNaN(mb)) {
+      mb = STATIC_MAX_BLOCKS[idx];
+    }
+    MAX_BLOCKS = mb;
+  } catch (e) {
+    // Fallback to static configuration when JSON is missing/invalid.
+    MAZE_MAX_LEVEL = BlocklyGames.MAX_LEVEL;
+    const idx = Math.max(0, Math.min(BlocklyGames.LEVEL - 1, STATIC_MAPS.length - 1));
+    map = STATIC_MAPS[idx];
+    MAX_BLOCKS = STATIC_MAX_BLOCKS[idx];
+  }
+}
 
 /**
  * Measure maze dimensions and set sizes.
@@ -231,15 +282,23 @@ const map = [
  * COLS: Number of tiles across.
  * SQUARE_SIZE: Pixel height and width of each maze square (i.e. tile).
  */
-const ROWS = map.length;
-const COLS = map[0].length;
+let ROWS;
+let COLS;
 const SQUARE_SIZE = 50;
 const PEGMAN_HEIGHT = 52;
 const PEGMAN_WIDTH = 49;
 
-const MAZE_WIDTH = SQUARE_SIZE * COLS;
-const MAZE_HEIGHT = SQUARE_SIZE * ROWS;
-const PATH_WIDTH = SQUARE_SIZE / 3;
+let MAZE_WIDTH;
+let MAZE_HEIGHT;
+let PATH_WIDTH;
+
+function setMapDimensions_() {
+  ROWS = map.length;
+  COLS = map[0].length;
+  MAZE_WIDTH = SQUARE_SIZE * COLS;
+  MAZE_HEIGHT = SQUARE_SIZE * ROWS;
+  PATH_WIDTH = SQUARE_SIZE / 3;
+}
 
 /**
  * Constants for cardinal directions.  Subsequent code assumes these are
@@ -485,17 +544,21 @@ function drawMap() {
 /**
  * Initialize Blockly and the maze.  Called on page load.
  */
-function init() {
+async function init() {
   Maze.Blocks.init();
 
   // Add skin parameter when moving to next level.
   BlocklyInterface.nextLevelParam = '&skin=' + SKIN_ID;
 
-  // Render the HTML.
+  // Load dynamic level data (JSON) and select per-level config.
+  await loadLevelsFromJson_();
+  setMapDimensions_();
+
+  // Render the HTML with the (possibly updated) max level.
   document.body.innerHTML = Maze.html.start(
       {lang: BlocklyGames.LANG,
        level: BlocklyGames.LEVEL,
-       maxLevel: BlocklyGames.MAX_LEVEL,
+       maxLevel: MAZE_MAX_LEVEL,
        skin: SKIN_ID,
        html: BlocklyGames.IS_HTML});
 
@@ -545,8 +608,8 @@ function init() {
   window.addEventListener('resize', onresize);
   onresize(null);
 
-  // Scale the workspace so level 1 = 1.3, and level 10 = 1.0.
-  const scale = 1 + (1 - (BlocklyGames.LEVEL / BlocklyGames.MAX_LEVEL)) / 3;
+  // Scale the workspace so level 1 = 1.3, and highest level = 1.0.
+  const scale = 1 + (1 - (BlocklyGames.LEVEL / MAZE_MAX_LEVEL)) / 3;
   BlocklyInterface.injectBlockly(
       {'maxBlocks': MAX_BLOCKS,
        'rtl': rtl,
