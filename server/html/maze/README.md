@@ -128,6 +128,18 @@ These logs help verify coordinate math, element IDs, and confirm if DOM mutation
 - __Blocks__: [server/html/maze/src/blocks.js](cci:7://file:///Users/danielbrandt/LocalProjects/blockly/blockly-games/server/html/maze/src/blocks.js:0:0-0:0)  
 - __Entry HTML__: [server/html/maze.html](cci:7://file:///Users/danielbrandt/LocalProjects/blockly/blockly-games/server/html/maze.html:0:0-0:0)
 
+## Add or Insert Levels Manually
+
+- __Update total levels__ (`server/html/src/lib-games.js`): Set `BlocklyGames.MAX_LEVEL` to the total number of levels you want to support.
+- __Add the map entry__ (`server/html/maze/src/main.js`): Insert a new 2D array into the `map` constant at the position you want the new level. Use the existing `SquareType` codes (`0` wall, `1` open, `2` start, `3` finish, `4` pink, `5` green, `6` star). Ensure each level has exactly one start (`2`) and one finish (`3`).
+- __Set max blocks per level__ (`server/html/maze/src/main.js`): Extend the `const MAX_BLOCKS` array so it has the same length as `map`. Add the max block count for your new level at the matching index.
+- __Configure toolbox per level__ (`server/html/maze/src/html.js`): Update `Maze.html.toolbox_(level)` to expose the blocks you want for the new level (e.g., gating `if`, `ifElse`, loops) based on `level`.
+
+__Sanity checks__
+- Keep all per‑level arrays in sync with `map` ordering (e.g., hints/help if present).
+- Confirm `BlocklyGames.MAX_LEVEL` equals `map.length` (or intended highest playable level).
+- Test by opening `server/html/maze.html`, selecting the new level, verifying toolbox contents and the max‑blocks limit, then running a simple solution.
+
 ## Status and Next Steps
 
 - __Status__: Star drawing, stable IDs, collection state, and animation-time visual updates are in place.  
