@@ -73,20 +73,6 @@ ${Maze.html.helpDialogs_()}
 Maze.html.toolbox_ = function(level) {
   let xml = `
       <block type="maze_moveForward"></block>
-      <block type="maze_turn"></block>
-      <block type="maze_turnIfOn"></block>
-      <block type="maze_forever"></block>
-      <block type="maze_repeatUntilSquareType"></block>
-      <block type="maze_repeatNTimes"></block>
-      <block type="maze_if"></block>
-      <block type="maze_ifElse"></block>
-      <block type="procedures_callnoreturn"></block>
-      <block type="maze_ifOnSquareType"></block>
-      <block type="maze_ifElseOnSquareType"></block>
-      <block type="procedures_defnoreturn"></block>
-      <block type="maze_turnIfOn"></block>
-      <block type="maze_ifOnSquareType"></block>
-      <block type="maze_ifElseOnSquareType"></block>
 `;
       
   if (level > 1) {
@@ -97,16 +83,34 @@ Maze.html.toolbox_ = function(level) {
     `;
     if (level > 2) {
       xml += '<block type="maze_repeatNTimes"></block>\n';
-      if (level === 6) {
-        xml += '<block type="maze_if"><field name="DIR">isPathLeft</field></block>\n';
-      } else if (level > 6) {
-        xml += '<block type="maze_if"></block>\n';
-        if (level > 8) {
-          xml += '<block type="maze_ifElse"></block>\n';
-        }
-      }
+      xml += '<block type="maze_forever"></block>\n';
+    }  
+    if (level === 7) {
+      xml += '<block type="maze_if"><field name="DIR">isPathLeft</field></block>\n';
+    } 
+    if (level > 7) {
+      xml += '<block type="maze_if"></block>\n';
+    } 
+    if (level > 9) {
+        xml += '<block type="maze_ifElse"></block>\n';
+    } 
+    if (level > 10) {
+        xml += `
+          <block type="maze_moveForward"></block>
+          <block type="maze_turn"></block>
+          <block type="maze_forever"></block>
+          <block type="maze_if"></block>
+          <block type="maze_ifElse"></block>
+          <block type="maze_repeatNTimes"></block>
+          <block type="maze_repeatUntilSquareType"></block>
+          <block type="maze_turnIfOn"></block>
+          <block type="maze_ifOnSquareType"></block>
+          <block type="maze_ifElseOnSquareType"></block>
+          <block type="procedures_callnoreturn"></block>
+          <block type="procedures_defnoreturn"></block>
+        `;
+      }  
     }
-  }
   return `<xml id="toolbox" xmlns="https://developers.google.com/blockly/xml">${xml}</xml>`;
 };
 
