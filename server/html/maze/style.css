@@ -136,12 +136,3 @@ html[dir="RTL"] #pegmanButton>span {
   width: 49px;
   background-position: -980px 0;
 }
-
-/* Hide BlocklyGames dialog container and overlay within Maze.
-   This suppresses help, done, abort, and storage dialogs on this app only. */
-#dialog,
-#dialogOverlay {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
