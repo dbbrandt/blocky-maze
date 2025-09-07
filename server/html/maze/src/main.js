@@ -685,7 +685,7 @@ async function init() {
     Blockly.SNAP_RADIUS *= 2;
     Blockly.CONNECTING_SNAP_RADIUS = Blockly.SNAP_RADIUS;
   }
-  if (BlocklyGames.LEVEL === 10) {
+  if (BlocklyGames.LEVEL === 11) {
     if (!BlocklyGames.loadFromLocalStorage(BlocklyGames.storageName,
                                            BlocklyGames.LEVEL)) {
       // Level 10 gets an introductory modal dialog.

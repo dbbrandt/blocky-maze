@@ -298,6 +298,30 @@ Maze.Blocks.init = function() {
       "colour": LOOPS_HUE,
       "tooltip": "Repeat the enclosed blocks until Pegman is on the selected square type.",
     },
+    // Block for repeating until there is a path in a given direction.
+    {
+      "type": "maze_repeatUntilPath",
+      "message0": `repeat until %1%2${BlocklyGames.getMsg('Maze.doCode', false)}%3`,
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "DIR",
+          "options": PATH_DIRECTIONS,
+        },
+        {
+          "type": "input_dummy",
+        },
+        {
+          "type": "input_statement",
+          "name": "DO",
+        },
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": LOOPS_HUE,
+      "tooltip": "Repeat the enclosed blocks until there is a path in the selected direction.",
+      "extensions": ["maze_turn_arrows"],
+    },
     // Block for repeating N times (no loop trap).
     {
       "type": "maze_repeatNTimes",
@@ -397,6 +421,13 @@ Blockly.JavaScript['maze_repeatUntilSquareType'] = function(block) {
   const type = block.getFieldValue('TYPE');
   let branch = Blockly.JavaScript.statementToCode(block, 'DO');
   return `while (!isOnSquareType(${type})) {\n${branch}}\n`;
+};
+
+Blockly.JavaScript['maze_repeatUntilPath'] = function(block) {
+  // Generate JavaScript for loop until there is a path in the chosen direction.
+  const dirFunc = block.getFieldValue('DIR');
+  let branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  return `while (!${dirFunc}('block_id_${block.id}')) {\n${branch}}\n`;
 };
 
 Blockly.JavaScript['maze_repeatNTimes'] = function(block) {

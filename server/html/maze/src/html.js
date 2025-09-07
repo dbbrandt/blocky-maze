@@ -82,23 +82,23 @@ Maze.html.toolbox_ = function(level) {
     <block type="maze_turn"><field name="DIR">turnRight</field></block>
     `;
     if (level > 2) {
-      xml += '<block type="maze_repeatNTimes"></block>\n';
       xml += '<block type="maze_forever"></block>\n';
     }  
-    if (level > 5) {
+    if (level === 7) {
       xml += '<block type="maze_if"><field name="DIR">isPathLeft</field></block>\n';
     } 
     if (level > 7) {
       xml += '<block type="maze_if"></block>\n';
     } 
-    if (level > 9) {
-        xml += '<block type="maze_ifElse"></block>\n';
-    } 
     if (level > 10) {
+      xml += '<block type="maze_ifOnSquareType"></block>\n';
+    } 
+    if (level > 15) {
         xml += `
           <block type="maze_moveForward"></block>
           <block type="maze_turn"></block>
           <block type="maze_forever"></block>
+          <block type="maze_repeatUntilPath"></block>
           <block type="maze_if"></block>
           <block type="maze_ifElse"></block>
           <block type="maze_repeatNTimes"></block>
