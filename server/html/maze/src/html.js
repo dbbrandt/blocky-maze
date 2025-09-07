@@ -85,7 +85,7 @@ Maze.html.toolbox_ = function(level) {
       xml += '<block type="maze_repeatNTimes"></block>\n';
       xml += '<block type="maze_forever"></block>\n';
     }  
-    if (level === 7) {
+    if (level > 5) {
       xml += '<block type="maze_if"><field name="DIR">isPathLeft</field></block>\n';
     } 
     if (level > 7) {
