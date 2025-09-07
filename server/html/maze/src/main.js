@@ -707,7 +707,7 @@ async function init() {
     setTimeout(function() {
       BlocklyInterface.workspace.addChangeListener(levelHelp);
       levelHelp();
-    }, 50000);
+    }, 500000);
   }
 
   // Add the spinning Pegman icon to the done dialog.
