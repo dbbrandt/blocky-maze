@@ -845,7 +845,7 @@ function levelHelp(opt_event) {
   } else if (BlocklyGames.LEVEL === 6) {
     if (!userBlocks.includes('maze_if')) {
       content = BlocklyGames.getElementById('dialogHelpIf');
-      style = {'width': '360px', 'top': '430px'};
+      style = {'width': '360px', 'top': '630px'};
       style[rtl ? 'right' : 'left'] = '425px';
       origin = toolbar[4].getSvgRoot();
     }
