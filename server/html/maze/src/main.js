@@ -886,14 +886,14 @@ function levelHelp(opt_event) {
     // until the user chooses 'right'.
     if (!userBlocks.includes('isPathRight')) {
       content = BlocklyGames.getElementById('dialogHelpMenu');
-      style = {'width': '360px', 'top': '430px'};
+      style = {'width': '360px', 'top': '630px'};
       style[rtl ? 'right' : 'left'] = '425px';
       origin = toolbar[4].getSvgRoot();
     }
   } else if (BlocklyGames.LEVEL === 9) {
     if (!userBlocks.includes('maze_ifElse')) {
       content = BlocklyGames.getElementById('dialogHelpIfElse');
-      style = {'width': '360px', 'top': '305px'};
+      style = {'width': '360px', 'top': '705px'};
       style[rtl ? 'right' : 'left'] = '425px';
       origin = toolbar[5].getSvgRoot();
     }
