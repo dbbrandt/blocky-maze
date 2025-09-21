@@ -241,7 +241,7 @@ async function loadLevelsFromJson_() {
     if (!response.ok) throw new Error('HTTP ' + response.status);
     const data = await response.json();
 
-    // Expect a top-level array of level objects: { level, max_blocks, map }
+    // Expect a top-level array of level objects: { level, max_blocks | maxBlocks, map }
     if (!Array.isArray(data)) throw new Error('Invalid schema: expected array');
     LEVELS_DATA = data;
 
@@ -260,15 +260,16 @@ async function loadLevelsFromJson_() {
     map = candidateMap;
 
     // Max blocks: normalize and fallback. Treat 0 as unlimited (Infinity).
-    let mb = levelData.max_blocks;
-    if (mb === 0) {
-      mb = Infinity;
-    } else if (typeof mb !== 'number' || isNaN(mb)) {
+    const rawMb = (levelData.max_blocks ?? levelData.maxBlocks);
+    let mb = (rawMb === 0) ? Infinity : Number(rawMb);
+    if (!Number.isFinite(mb)) {
+      console.warn('[Maze] Invalid or missing max_blocks for level index', idx, '(' + rawMb + ') - using static default.');
       mb = STATIC_MAX_BLOCKS[idx];
     }
     MAX_BLOCKS = mb;
   } catch (e) {
     // Fallback to static configuration when JSON is missing/invalid.
+    console.warn('[Maze] Failed to load maze/maze.json:', e);
     MAZE_MAX_LEVEL = BlocklyGames.MAX_LEVEL;
     const idx = Math.max(0, Math.min(BlocklyGames.LEVEL - 1, STATIC_MAPS.length - 1));
     map = STATIC_MAPS[idx];
